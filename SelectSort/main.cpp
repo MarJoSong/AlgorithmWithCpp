@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <string>
 #include "Student.h"
+#include "SortTestHelper.h"
 
 using namespace std;  
 
@@ -22,6 +23,7 @@ void SelectSort(T arr[], int n)
 
 int main()
 {
+	/*
 	int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
 	SelectSort(arr, 10);
 	for (int i = 0; i < 10; i++)
@@ -30,7 +32,7 @@ int main()
 	}
 	cout << endl;
 
-	float arr2[] = { 10.9,87.6,5,4.3,21 };
+	double arr2[] = { 10.9,87.6,5,4.3,21 };
 	SelectSort(arr2, 5);
 	for (int i = 0; i < 5; i++)
 	{
@@ -53,4 +55,12 @@ int main()
 		cout << stu[i] << ", ";
 	}
 	cout << endl;
+	*/
+
+	int n = 10000;
+	int* autoArr = SortTestHelper::generateRandomArray(n, 0, n);
+	SelectSort(autoArr, n);
+	SortTestHelper::printArray(autoArr, n);
+
+	delete[] autoArr;
 }
