@@ -59,8 +59,11 @@ int main()
 
 	int n = 10000;
 	int* autoArr = SortTestHelper::generateRandomArray(n, 0, n);
-	SelectSort(autoArr, n);
-	SortTestHelper::printArray(autoArr, n);
+	//SelectSort(autoArr, n);
+	//SortTestHelper::printArray(autoArr, n);
+	SortTestHelper::testSort("Select Sort", SelectSort, autoArr, n);
 
 	delete[] autoArr;
+
+	return 0;
 }
