@@ -1,49 +1,57 @@
-#include "stdafx.h"
+//
+// Created by mars on 2021/6/17.
+//
+#include <iostream>
+#include "Student.h"
 #include "SortTestHelper.h"
-#include "SelectionSort.h"
-#include "InsertionSort.h"
-#include "MergeSort.h"
 
+using namespace std;
+
+//閫夋嫨鎺掑簭锛屾椂闂村鏉傚害涓篛(n^2), 绌洪棿澶嶆潅搴︿负1
+template<typename T>
+void selectionSort(T arr[], int n) {
+  //浼樺寲锛歩鐨勫垽鏂彲浠ユ槸i < n - 1;鍥犱负i鑻ヤ负n-1, j=n蹇呬笉婊¤冻j<n
+  for (int i = 0; i < n; ++i) {
+	//瀵绘壘[i, n)鍖洪棿閲岀殑鏈�灏忓�煎拰i杩涜浣嶇疆浜ゆ崲
+	int minIndex = i;
+	for (int j = i + 1; j < n; ++j) {
+	  if (arr[j] < arr[minIndex])
+		minIndex = j;
+	}
+	swap(arr[i], arr[minIndex]);
+  }
+}
 
 int main() {
-    /*
-    Student d[4] = {
-            Student("D", 88),
-            Student("B", 100),
-            Student("A", 98),
-            Student("C", 88)
-    };
-    selectionSort(d, 4);
-    for (const auto &x : d) {
-        cout << x;
-    }
-    */
+  int a[10] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+  selectionSort(a, 10);
+  for (auto i : a)
+	cout << i << " ";
+  cout << endl;
 
-    int n = 50000;
-    int *arr1 = SortTestHelper::genereateRandomArray(n, 0, n);
-    int *arr2 = SortTestHelper::copyIntArray(arr1, n);
-    int *arr3 = SortTestHelper::copyIntArray(arr1, n);
+  float b[5] = {4.4f, 9.0f, 3.6f, 1.f, .2f};
+  selectionSort(b, 5);
+  for (auto i : b)
+	cout << i << " ";
+  cout << endl;
 
-    SortTestHelper::testSort("SelectionSort", selectionSort, arr1, n);
-    SortTestHelper::testSort("InsertionSortOptimise", insertionSortOptimise, arr2, n);
-    SortTestHelper::testSort("MergeSort", mergeSort, arr3, n);
+  string s[4] = {"hello", "World", "Jack", "Ques"};
+  selectionSort(s, 4);
+  for (auto i : s)
+	cout << i << " ";
+  cout << endl;
 
-    delete[] arr1;
-    delete[] arr2;
-    delete[] arr3;
+  struct Student stu[4] = {{"D", 90}, {"B", 95}, {"A", 95}, {"C", 100}};
+  selectionSort(stu, 4);
+  for (auto i : stu)
+	cout << i << endl;
 
-    //优化后的插入排序在大部分有序的数组上效率惊人
-    arr1 = SortTestHelper::generateNearlyOrderedArray(n, 3);
-    arr2 = SortTestHelper::copyIntArray(arr1, n);
-    arr3 = SortTestHelper::copyIntArray(arr1, n);
+  int n = 100000;
+  int *arr = SortTestHelper::generateRandomArray(n, 0, n);
+  selectionSort(arr, n);
+  //SortTestHelper::printArray(arr, n);
+  SortTestHelper::testSort("Selection Sort", selectionSort, arr, n);
+  delete[] arr;
 
-    SortTestHelper::testSort("SelectionSort", selectionSort, arr1, n);
-    SortTestHelper::testSort("InsertionSortOptimise", insertionSortOptimise, arr2, n);
-    SortTestHelper::testSort("MergeSort", mergeSort, arr3, n);
-
-    delete[] arr1;
-    delete[] arr2;
-    delete[] arr3;
-
-    return 0;
+  return 0;
 }

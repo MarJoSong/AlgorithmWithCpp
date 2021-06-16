@@ -1,22 +1,25 @@
 //
-// Created by 76920 on 2020/9/18.
+// Created by mars on 2021/6/17.
 //
 
-#ifndef SELECTIONSORT_STUDENT_H
-#define SELECTIONSORT_STUDENT_H
+#ifndef INC_1_SORT__STUDENT_H_
+#define INC_1_SORT__STUDENT_H_
+#include <iostream>
 
-#include "stdafx.h"
+using namespace std;
 
-class Student {
-public:
-    Student() = delete;
-    Student(string name, int score);
-    bool operator<(const Student &otherStudent) const;
-    friend ostream& operator<<(ostream &os, const Student &student);
+struct Student {
+  string name;
+  int score;
 
-private:
-    string m_name;
-    int m_score;
+  bool operator<(const Student &otherStudent) const {
+	return score != otherStudent.score ? score > otherStudent.score : name < otherStudent.name;
+  }
+
+  friend ostream &operator<<(ostream &os, Student &student) {
+	os << "Student: " << student.name << " " << student.score;
+	return os;
+  }
 };
 
-#endif //SELECTIONSORT_STUDENT_H
+#endif //INC_1_SORT__STUDENT_H_
