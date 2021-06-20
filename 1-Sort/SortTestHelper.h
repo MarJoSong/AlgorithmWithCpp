@@ -22,6 +22,12 @@ int *generateRandomArray(int n, int rangeL, int rangeR) {
   return arr;
 }
 
+int *dupArray(int arr[], int n) {
+    int *dupArr = new int[n];
+    memcpy(dupArr, arr, n * sizeof(int));
+    return dupArr;
+}
+
 template<typename T>
 void printArray(T arr[], int n) {
   for (int i = 0; i < n; ++i)
