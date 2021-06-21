@@ -6,6 +6,8 @@
 #define INC_1_SORT__SORTTESTHELPER_H_
 
 #include <cassert>
+#include <iomanip>
+#include <iostream>
 
 namespace SortTestHelper {
 
@@ -22,7 +24,23 @@ int *generateRandomArray(int n, int rangeL, int rangeR) {
   return arr;
 }
 
-int *dupArray(int arr[], int n) {
+int *generateNearlyOrderedArray(int n, int swapTimes) {
+  int *arr = new int[n];
+  for (int i = 0; i<n; ++i) {
+    arr[i] = i;
+  }
+
+  srand(time(NULL));
+  for (int i = 0; i < swapTimes; ++i) {
+    int posx = rand() %n;
+    int posy = rand() %n;
+    swap(arr[posx], arr[posy]);
+  }
+  cout << "Test Random Nearly Ordered Array, size = " << n << ", swap time = " << swapTimes << endl;
+  return arr;
+}
+
+int *copyArray(int *arr, int n) {
     int *dupArr = new int[n];
     memcpy(dupArr, arr, n * sizeof(int));
     return dupArr;
@@ -52,7 +70,7 @@ void testSort(string sortName, void(*sort)(T[], int), T arr[], int n) {
   sort(arr, n);
   clock_t endTime = clock();
   assert(isSorted(arr, n));
-  cout << sortName << ": " << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
+  cout << sortName << ": " << setprecision(6) << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << endl;
 }
 
 }
