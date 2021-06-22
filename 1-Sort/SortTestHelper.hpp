@@ -1,9 +1,9 @@
 //
-// Created by mars on 2021/6/17.
+// Created by mars on 2021/6/22.
 //
 
-#ifndef INC_1_SORT__SORTTESTHELPER_H_
-#define INC_1_SORT__SORTTESTHELPER_H_
+#ifndef INC_1_SORT__SORTTESTHELPER_HPP_
+#define INC_1_SORT__SORTTESTHELPER_HPP_
 
 #include <cassert>
 #include <iomanip>
@@ -27,23 +27,23 @@ int *generateRandomArray(int n, int rangeL, int rangeR) {
 int *generateNearlyOrderedArray(int n, int swapTimes) {
   int *arr = new int[n];
   for (int i = 0; i<n; ++i) {
-    arr[i] = i;
+	arr[i] = i;
   }
 
   srand(time(NULL));
   for (int i = 0; i < swapTimes; ++i) {
-    int posx = rand() %n;
-    int posy = rand() %n;
-    swap(arr[posx], arr[posy]);
+	int posx = rand() %n;
+	int posy = rand() %n;
+	swap(arr[posx], arr[posy]);
   }
   cout << "Test Random Nearly Ordered Array, size = " << n << ", swap time = " << swapTimes << endl;
   return arr;
 }
 
 int *copyArray(int *arr, int n) {
-    int *dupArr = new int[n];
-    memcpy(dupArr, arr, n * sizeof(int));
-    return dupArr;
+  int *dupArr = new int[n];
+  memcpy(dupArr, arr, n * sizeof(int));
+  return dupArr;
 }
 
 template<typename T>
@@ -75,4 +75,4 @@ void testSort(string sortName, void(*sort)(T[], int), T arr[], int n) {
 
 }
 
-#endif //INC_1_SORT__SORTTESTHELPER_H_
+#endif //INC_1_SORT__SORTTESTHELPER_HPP_
