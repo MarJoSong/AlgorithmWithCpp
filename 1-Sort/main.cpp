@@ -1,5 +1,6 @@
 //
 // Created by mars on 2021/6/17.
+// 快速回忆可参考菜鸟教程 (https://www.runoob.com/data-structures/data-structures-tutorial.html)
 //
 #include <iostream>
 #include "Student.h"
@@ -18,13 +19,13 @@ template<typename T>
 void selectionSort(T arr[], int n) {
   //优化: i的判断可以是i<n-1, 因为i若为n-1, j=n必不满足j<n
   for (int i = 0; i < n; ++i) {
-	//寻找[i, n)区间里的最小值和i进行位置交换
-	int minIndex = i;
-	for (int j = i + 1; j < n; ++j) {
-	  if (arr[j] < arr[minIndex])
-		minIndex = j;
-	}
-	swap(arr[i], arr[minIndex]);
+    //寻找[i, n)区间里的最小值和i进行位置交换
+    int minIndex = i;
+    for (int j = i + 1; j < n; ++j) {
+      if (arr[j] < arr[minIndex])
+        minIndex = j;
+    }
+    swap(arr[i], arr[minIndex]);
   }
 }
 
@@ -39,14 +40,14 @@ template<typename T>
 void insertionSort(T arr[], int n) {
   for (int i = 1; i < n; ++i) {
 #if 0
-	for (int j = i; j > 0 && arr[j] < arr[j-1]; --j)
-		swap(arr[j], arr[j-1]);
+    for (int j = i; j > 0 && arr[j] < arr[j-1]; --j)
+        swap(arr[j], arr[j-1]);
 #else
-	T e = arr[i];
-	int j = i - 1;
-	for (; j >= 0 && arr[j] > e; --j)
-	  arr[j + 1] = arr[j];
-	arr[j + 1] = e;
+    T e = arr[i];
+    int j = i - 1;
+    for (; j >= 0 && arr[j] > e; --j)
+      arr[j + 1] = arr[j];
+    arr[j + 1] = e;
 #endif
   }
 }
@@ -54,35 +55,37 @@ void insertionSort(T arr[], int n) {
 template<typename T>
 void auxInsertionSort(T arr[], int l, int r) {
   for (int i = l + 1; i <= r; ++i) {
-	T e = arr[i];
-	int j = i;
-	for (; j > l && arr[j - 1] > e; --j)
-	  arr[j] = arr[j - 1];
-	arr[j] = e;
+    T e = arr[i];
+    int j = i;
+    for (; j > l && arr[j - 1] > e; --j)
+      arr[j] = arr[j - 1];
+    arr[j] = e;
   }
 }
 
 /**
- * 希尔排序, 改进版的插入排序，时间复杂度为O(n^(1.3—2)), 如果插入排序的分组粒度为1,
- * 那么希尔排序的初始分组粒度gap=arr.length()/2, 逐次将分组粒度逼近为1, 不稳定排序
+ * 希尔排序(缩小增量排序), 改进版的插入排序，时间复杂度为 O(n^(1.3—2)), 空间复杂度为常数阶 O(1), 如果插入排序的分组粒度为 1,
+ * 那么希尔排序的初始分组粒度 gap=arr.length()/2, 逐次将分组粒度逼近为 1, 不稳定排序。
+ * 希尔排序没有时间复杂度为 O(n(logn))的快速排序算法快, 因此对中等大小规模表现良好, 但对规模非常大的数据排序不是最优选择,
+ * 总之比一般 O(n^2 ) 复杂度的算法快得多。
  */
 template<typename T>
 void shellSort(T arr[], int n) {
   for (int gap = n / 2; gap > 0; gap /= 2) {
-	for (int i = gap; i < n; ++i) {
+    for (int i = gap; i < n; ++i) {
 #if 0
-	  for (int j=i;j-gap>=0 && arr[j]< arr[j-gap]; j-=gap) {
-		swap(arr[j],arr[j-gap]);
-	  }
+      for (int j=i;j-gap>=0 && arr[j]< arr[j-gap]; j-=gap) {
+        swap(arr[j],arr[j-gap]);
+      }
 #else
-	  T tmp = arr[i];
-	  int j = i;
-	  for (; j - gap >= 0 && tmp < arr[j - gap]; j -= gap) {
-		arr[j] = tmp;
-	  }
-	  arr[j] = tmp;
+      T tmp = arr[i];
+      int j = i;
+      for (; j - gap >= 0 && tmp < arr[j - gap]; j -= gap) {
+        arr[j] = tmp;
+      }
+      arr[j] = tmp;
 #endif
-	}
+    }
   }
 }
 
@@ -96,10 +99,10 @@ void shellSort(T arr[], int n) {
 template<typename T>
 void bubbleSort(T arr[], int n) {
   for (int i = n - 1; i > 0; i--) {
-	for (int j = 0; j < i; j++) {
-	  if (arr[j] > arr[j + 1])
-		swap(arr[j + 1], arr[j]);
-	}
+    for (int j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1])
+        swap(arr[j + 1], arr[j]);
+    }
   }
 }
 
@@ -115,24 +118,24 @@ template<typename T>
 void __merge(T arr[], int l, int mid, int r) {
   T *aux = new T[r - l + 1];
   for (int i = l; i <= r; ++i) {
-	aux[i - l] = arr[i];
+    aux[i - l] = arr[i];
   }
 
   int i = l, j = mid + 1;
   for (int k = l; k <= r; ++k) {
-	if (i > mid) {
-	  arr[k] = aux[j - l];
-	  j++;
-	} else if (j > r) {
-	  arr[k] = aux[i - l];
-	  i++;
-	} else if (aux[i - l] < aux[j - l]) {
-	  arr[k] = aux[i - l];
-	  i++;
-	} else {
-	  arr[k] = aux[j - l];
-	  j++;
-	}
+    if (i > mid) {
+      arr[k] = aux[j - l];
+      j++;
+    } else if (j > r) {
+      arr[k] = aux[i - l];
+      i++;
+    } else if (aux[i - l] < aux[j - l]) {
+      arr[k] = aux[i - l];
+      i++;
+    } else {
+      arr[k] = aux[j - l];
+      j++;
+    }
   }
 
   delete[] aux;
@@ -149,8 +152,8 @@ template<typename T>
 void __mergeSort(T arr[], int l, int r) {
   //优化一: 在数组待归并元素范围比较小时，转而使用插入排序
   if (r - l <= 15) {
-	auxInsertionSort(arr, l, r);
-	return;
+    auxInsertionSort(arr, l, r);
+    return;
   }
 
   int mid = l + (r - l) / 2;
@@ -158,7 +161,7 @@ void __mergeSort(T arr[], int l, int r) {
   __mergeSort(arr, mid + 1, r);
   //优化一: 若数组arr[l...r]已经有序，则不在归并
   if (arr[mid] > arr[mid + 1])
-	__merge(arr, l, mid, r);
+    __merge(arr, l, mid, r);
 }
 
 /**
@@ -182,13 +185,44 @@ void mergeSort(T arr[], int n) {
 template<typename T>
 void mergeSortB2T(T arr[], int n) {
   for (int sz = 1; sz <= n; sz += sz) {
-	//for (int i = 0; i < n; i += sz + sz) {
+    //for (int i = 0; i < n; i += sz + sz) {
     //归并的条件是保证第二个数组的存在, i+sz<n保证了第二个数组的存在
-	for (int i = 0; i + sz < n; i += sz + sz) {
-	  //对arr[i...i+sz-1]和arr[i+sz...i+sz*2-1]进行归并
-	  __merge(arr, i, i + sz - 1, min(i + sz + sz - 1, n-1));
-	}
+    for (int i = 0; i + sz < n; i += sz + sz) {
+      //对arr[i...i+sz-1]和arr[i+sz...i+sz*2-1]进行归并
+      __merge(arr, i, i + sz - 1, min(i + sz + sz - 1, n - 1));
+    }
   }
+}
+
+template<typename T>
+int partition(T arr[], int l, int r) {
+  T v = arr[l];
+  int i = l + 1, j = l + 1;
+  for (int k = l + 1; k < r; ++k) {
+    if (arr[k] < v) {
+      swap(arr[k], arr[j]);
+      ++j;
+    }
+  }
+  swap(arr[l], arr[j - 1]);
+
+  return j - 1;
+}
+
+template<typename T>
+void __quickSort(T arr[], int l, int r) {
+  if (l >= r) {
+    return;
+  }
+
+  int mid = partition(arr, l, r);
+  __quickSort(arr, l, mid);
+  __quickSort(arr, mid + 1, r);
+}
+
+template<typename T>
+void quickSort(T arr[], int n) {
+  __quickSort(arr, 0, n);
 }
 
 int main() {
@@ -213,27 +247,28 @@ int main() {
   for (auto i : stu)
 	cout << i << endl;
   */
-  int n = 4000000;
-  //int *arr1 = SortTestHelper::generateRandomArray(n, 0, n);
-  int *arr1 = SortTestHelper::generateNearlyOrderedArray(n, 0);
-  int *arr2 = SortTestHelper::copyArray(arr1, n);
-  int *arr3 = SortTestHelper::copyArray(arr1, n);
-  int *arr4 = SortTestHelper::copyArray(arr1, n);
+  int n = 40000000;
+  int *arr1 = SortTestHelper::generateRandomArray(n, 0, n);
+  //int *arr1 = SortTestHelper::generateNearlyOrderedArray(n, 0);
+  //int *arr2 = SortTestHelper::copyArray(arr1, n);
+  //int *arr3 = SortTestHelper::copyArray(arr1, n);
+  //int *arr4 = SortTestHelper::copyArray(arr1, n);
   int *arr5 = SortTestHelper::copyArray(arr1, n);
   int *arr6 = SortTestHelper::copyArray(arr1, n);
   //selectionSort(arr, n);
   //SortTestHelper::printArray(arr, n);
 
   //SortTestHelper::testSort("Selection Sort", selectionSort, arr1, n);
-  SortTestHelper::testSort("Insertion Sort", insertionSort, arr2, n);
+  //SortTestHelper::testSort("Insertion Sort", insertionSort, arr2, n);
   //SortTestHelper::testSort("Bubble    Sort", bubbleSort, arr3, n);
-  SortTestHelper::testSort("Shell     Sort", shellSort, arr4, n);
-  SortTestHelper::testSort("Merge     Sort", mergeSort, arr5, n);
-  SortTestHelper::testSort("MergeB2T  Sort", mergeSortB2T, arr6, n);
+  //SortTestHelper::testSort("Shell     Sort", shellSort, arr4, n);
+  //SortTestHelper::testSort("Merge     Sort", mergeSort, arr5, n);
+  SortTestHelper::testSort("MergeB2T  Sort", mergeSortB2T, arr5, n);
+  SortTestHelper::testSort("Quick     Sort", quickSort, arr6, n);
   delete[] arr1;
-  delete[] arr2;
-  delete[] arr3;
-  delete[] arr4;
+  //delete[] arr2;
+  //delete[] arr3;
+  //delete[] arr4;
   delete[] arr5;
   delete[] arr6;
 
