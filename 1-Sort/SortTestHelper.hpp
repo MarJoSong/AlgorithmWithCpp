@@ -18,23 +18,23 @@ int *generateRandomArray(int n, int rangeL, int rangeR) {
   srand(time(NULL));
 
   for (int i = 0; i < n; ++i) {
-	arr[i] = rand() % (rangeR - rangeL + 1) + rangeL;
+    arr[i] = rand() % (rangeR - rangeL + 1) + rangeL;
   }
-
+  cout << "Test Random Nearly Ordered Array, size = " << n << ", range = [" << rangeL << ", " << rangeR << "]" << endl;
   return arr;
 }
 
 int *generateNearlyOrderedArray(int n, int swapTimes) {
   int *arr = new int[n];
-  for (int i = 0; i<n; ++i) {
-	arr[i] = i;
+  for (int i = 0; i < n; ++i) {
+    arr[i] = i;
   }
 
   srand(time(NULL));
   for (int i = 0; i < swapTimes; ++i) {
-	int posx = rand() %n;
-	int posy = rand() %n;
-	swap(arr[posx], arr[posy]);
+    int posx = rand() % n;
+    int posy = rand() % n;
+    swap(arr[posx], arr[posy]);
   }
   cout << "Test Random Nearly Ordered Array, size = " << n << ", swap time = " << swapTimes << endl;
   return arr;
@@ -49,7 +49,7 @@ int *copyArray(int *arr, int n) {
 template<typename T>
 void printArray(T arr[], int n) {
   for (int i = 0; i < n; ++i)
-	cout << arr[i] << " ";
+    cout << arr[i] << " ";
   cout << endl;
 
   return;
@@ -58,8 +58,8 @@ void printArray(T arr[], int n) {
 template<typename T>
 static bool isSorted(T arr[], int n) {
   for (int i = 0; i < n - 1; ++i) {
-	if (arr[i] > arr[i + 1])
-	  return false;
+    if (arr[i] > arr[i + 1])
+      return false;
   }
   return true;
 }

@@ -16,19 +16,23 @@ using namespace std;
 
 int main() {
 
-  int n = 1000000;
-#if 0
-  //int *arr1 = SortTestHelper::generateRandomArray(n, 0, n);
+  int n = 10000000;
+#if 1
+  int *arr1 = SortTestHelper::generateRandomArray(n, 0, 10);
 #else
-  int *arr1 = SortTestHelper::generateNearlyOrderedArray(n, 10);
+  int *arr1 = SortTestHelper::generateNearlyOrderedArray(n, 0);
 #endif
   int *arr2 = SortTestHelper::copyArray(arr1, n);
+  int *arr3 = SortTestHelper::copyArray(arr1, n);
 
   SortTestHelper::testSort("MergeB2T  Sort", mergeSortB2T, arr1, n);
-  SortTestHelper::testSort("Quick     Sort", quickSort, arr2, n);
+  //SortTestHelper::testSort("Quick     Sort", quickSort, arr2, n);
+  SortTestHelper::testSort("Quick2WaysSort", quickSort2Ways, arr2, n);
+  SortTestHelper::testSort("Quick3WaysSort", quickSort3Ways, arr3, n);
 
   delete[] arr1;
   delete[] arr2;
+  delete[] arr3;
 
   return 0;
 }
