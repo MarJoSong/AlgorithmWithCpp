@@ -11,11 +11,12 @@
 #include "QuickSort.hpp"
 #include "SelectionSort.hpp"
 #include "ShellSort.hpp"
+#include "Heap.hpp"
 
 using namespace std;
 
 int main() {
-
+/*
   int n = 10000000;
 #if 1
   int *arr1 = SortTestHelper::generateRandomArray(n, 0, 10);
@@ -33,6 +34,14 @@ int main() {
   delete[] arr1;
   delete[] arr2;
   delete[] arr3;
+*/
+  Heap<int> test = Heap<int>(10);
+  srand(time(NULL));
+  for (int i=0; i< 10; i++) {
+    test.shiftUp(rand() % 100);
+  }
+
+  test.printArr();
 
   return 0;
 }
