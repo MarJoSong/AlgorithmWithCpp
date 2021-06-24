@@ -24,7 +24,7 @@ int *generateRandomArray(int n, int rangeL, int rangeR) {
   return arr;
 }
 
-int *generateNearlyOrderedArray(int n, int swapTimes) {
+int *generateNearlySmall2BigArray(int n, int swapTimes) {
   int *arr = new int[n];
   for (int i = 0; i < n; ++i) {
     arr[i] = i;
@@ -36,7 +36,23 @@ int *generateNearlyOrderedArray(int n, int swapTimes) {
     int posy = rand() % n;
     swap(arr[posx], arr[posy]);
   }
-  cout << "Test Random Nearly Ordered Array, size = " << n << ", swap time = " << swapTimes << endl;
+  cout << "Test Random Nearly Small2Big Ordered Array, size = " << n << ", swap time = " << swapTimes << endl;
+  return arr;
+}
+
+int *generateNearlyBig2SmallArray(int n, int swapTimes) {
+  int *arr = new int[n];
+  for (int i = 0; i < n; ++i) {
+    arr[i] = n-1-i;
+  }
+
+  srand(time(NULL));
+  for (int i = 0; i < swapTimes; ++i) {
+    int posx = rand() % n;
+    int posy = rand() % n;
+    swap(arr[posx], arr[posy]);
+  }
+  cout << "Test Random Nearly Big2Small Ordered Array, size = " << n << ", swap time = " << swapTimes << endl;
   return arr;
 }
 
@@ -51,8 +67,6 @@ void printArray(T arr[], int n) {
   for (int i = 0; i < n; ++i)
     cout << arr[i] << " ";
   cout << endl;
-
-  return;
 }
 
 template<typename T>
