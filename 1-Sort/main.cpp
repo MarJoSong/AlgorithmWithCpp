@@ -15,6 +15,28 @@
 
 using namespace std;
 
+template<typename T>
+void printHeap(T arr, int n) {
+  int flag = 1;
+  int max = 1;
+  while (max < n) max <<= 1;
+  max <<= 1;
+  cout << "The structure of Heap:";
+  for (int i = 1; i <= n; ++i) {
+    if (i == flag) {
+      cout << endl;
+      flag <<= 1;
+      max /= 2;
+      for (int k = 0; k < max / 2; ++k)
+        cout << "  ";
+    }
+    cout << setw(2) << arr[i];
+    for (int k = 0; k < max - 1; ++k)
+      cout << "  ";
+  }
+  cout << endl;
+}
+
 int main() {
 /*
   int n = 10000000;
@@ -35,13 +57,17 @@ int main() {
   delete[] arr2;
   delete[] arr3;
 */
-  Heap<int> test = Heap<int>(10);
-  srand(time(NULL));
-  for (int i=0; i< 10; i++) {
-    test.shiftUp(rand() % 100);
-  }
 
-  test.printArr();
+  int *arr1 = SortTestHelper::generateRandomArray(10, 10, 99);
+  int *arr2 = new int[11];
+  copy(arr1, arr1 + 10, arr2 + 1);
+  printHeap(arr2, 10);
+
+  Heap<int> hp = Heap<int>(arr1, 10);
+  for (int i = 0; i < 10; i++)
+    cout << hp.extract() << " ";
+  cout << endl;
+
 
   return 0;
 }
