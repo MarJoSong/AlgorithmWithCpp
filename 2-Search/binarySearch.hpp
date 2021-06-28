@@ -155,10 +155,10 @@ class BST {
 	}
   }
 
-  void destory(Node *node) {
+  void destroy(Node *node) {
 	if (node != nullptr) {
-	  destory(node->left);
-	  destory(node->right);
+	  destroy(node->left);
+	  destroy(node->right);
 	  delete node;
 	  count--;
 	}
@@ -171,7 +171,7 @@ class BST {
   }
   ~
   BST() {
-	destory(root);
+	destroy(root);
   }
 
   int size() {
