@@ -259,12 +259,12 @@ class BinarySearchTree {
       return successor;
       // 同理也可以使用前驱节点替代
 #if 0
-      Node *precursors = new Node(maximum(node->left));
+      Node *predecessor = new Node(maximum(node->left));
       count ++;
-      precursors->right = node->right;
-      precursors->left = removeMax(node->left);
+      predecessor->right = node->right;
+      predecessor->left = removeMax(node->left);
       count --;
-      return precursors;
+      return predecessor;
 #endif
     }
   }
@@ -359,6 +359,22 @@ class BinarySearchTree {
   void remove(Key key) {
     root = remove(root, key);
   }
+
+  Val *floor() {
+
+  }
+  Val *ceil() {
+
+  }
+
+  int rand() {
+
+  }
+
+  int select() {
+
+  }
+  //支持重复元素的二分搜索树, rank, select
 };
 
 #endif //INC_2_SEARCH__BINARYSEARCH_HPP_
