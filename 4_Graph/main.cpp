@@ -1,8 +1,10 @@
 #include <iostream>
-#include <cstdlib>
 #include "DenseGraph.hpp"
 #include "SparseGraph.hpp"
 #include "ReadGraph.hpp"
+#include "Component.hpp"
+#include "Path.hpp"
+#include "ShortestPath.hpp"
 
 using namespace std;
 
@@ -51,16 +53,49 @@ int main() {
   }
   cout << endl;
 #endif
-
-  string filename = "testG1.txt";
-
-  SparseGraph g1(13, false);
-  ReadGraph<SparseGraph> readGraph1(g1, filename);
-  g1.show();
-
+#if 0
   DenseGraph g2(13, false);
   ReadGraph<DenseGraph> readGraph2(g2, filename);
   g2.show();
+#endif
+#if 0
+  string filename1 = "testG1.txt";
+  SparseGraph g1(13, false);
+  ReadGraph<SparseGraph> readGraph1(g1, filename1);
+  Component<SparseGraph> component1(g1);
+  cout << "TestG1.txt, Component Count: " << component1.count() << endl;
+#endif
+
+
+  string filename1 = "testG2.txt";
+  SparseGraph g1(7, false);
+  ReadGraph<SparseGraph> readGraph1(g1, filename1);
+  Component<SparseGraph> component1(g1);
+  cout << "TestG2.txt, Component Count: " << component1.count() << endl;
+
+  Path<SparseGraph> dfs1(g1, 0);
+  cout << "DFS: ";
+  dfs1.showPath(6);
+
+  ShortestPath<SparseGraph> bfs1(g1, 0);
+  cout << "BFS: " << endl;
+  bfs1.showPath(6);
+  cout << "Shortest path length: " << bfs1.length(6);
+
+  string filename2 = "testG3.txt";
+  SparseGraph g2(8, false);
+  ReadGraph<SparseGraph> readGraph2(g2, filename2);
+  Component<SparseGraph> component2(g2);
+  cout << "TestG2.txt, Component Count: " << component2.count() << endl;
+
+  Path<SparseGraph> dfs2(g2, 0);
+  cout << "DFS: ";
+  dfs2.showPath(7);
+
+  ShortestPath<SparseGraph> bfs2(g2, 0);
+  cout << "BFS: " << endl;
+  bfs2.showPath(7);
+  cout << "Shortest path length: " << bfs2.length(7);
 
   return 0;
 }
